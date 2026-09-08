@@ -1,0 +1,69 @@
+data:
+  add_eos: true
+  audio_cache_dir: ./output/audio_cache
+  audio_resolve_timeout_seconds: 600
+  dataloader_timeout_seconds: 600
+  local_audio_roots: []
+  max_audio_duration_seconds: 40
+  num_workers: 2
+  persistent_workers: true
+  shuffle_shards: true
+  target_format: qwen_asr
+  training_cache:
+    mode: persistent
+    session_name: xaut_ft_simple_cache
+decode:
+  do_sample: false
+  max_new_tokens: 256
+  num_beams: 1
+  prompt_mode: qwen_asr_control_prefix
+  repetition_penalty: 1.05
+model:
+  attn_implementation: eager
+  encoder_layers: 14
+  fix_mistral_regex: true
+  load_dtype: bfloat16
+  local_files_only: false
+  qwen_source: X-AuT/X-AuT
+output_dir: ./output
+lora:
+  enabled: true
+  r: 32
+  alpha: 64
+  dropout: 0.05
+  target_modules:
+  - q_proj
+  - k_proj
+  - v_proj
+  - o_proj
+  bias: none
+seed: 42
+tokenizer:
+  fix_mistral_regex: true
+  local_files_only: false
+  source: X-AuT/X-AuT
+train:
+  amp: auto
+  betas: [0.9, 0.95]
+  clip_grad_norm: 1.0
+  epochs: 2.0
+  grad_accum_steps: 2
+  gradient_checkpointing: true
+  log_every: 10
+  lr: 5.0e-06
+  min_lr_ratio: 0.1
+  per_device_batch_size: 4
+  save_every_steps: 100000
+  save_final_checkpoint: true
+  warmup_steps: 20
+  weight_decay: 0.01
+train_manifest_index: ./data/train_index.json
+trainable:
+  audio_encoder: true
+  bridge_ln_post: true
+  bridge_proj1: true
+  bridge_proj2: true
+  lm_head: false
+  text_decoder: false
+  text_decoder_norm: false
+  text_decoder_top_layers: 0

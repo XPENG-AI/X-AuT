@@ -1,0 +1,8 @@
+{
+  "train_shards": [
+    {
+      "path": "data/train.jsonl",
+      "count": 1000
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.venv/
+/output/
+/xaut-ft-simple/output/
+*.offsets.npy
+*.lengths.npy
+*.npy.meta.json
