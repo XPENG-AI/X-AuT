@@ -6,7 +6,7 @@
 
 <p align="center">
   <b>Progressive Audio-Encoder Compression for Speech LLMs with Cross-Scale Distillation</b><br/>
-  XPeng Inc. &nbsp;|&nbsp; 🌐 <a href="https://x-aut.github.io/">Project Page</a> &nbsp;|&nbsp; 🤗 <a href="https://huggingface.co/X-AuT/X-AuT">Model Weights</a> &nbsp;|&nbsp; <a href="README_zh.md">【中文说明】</a>
+  XPeng Inc. &nbsp;|&nbsp; 🌐 <a href="https://xpeng-ai.github.io/x-aut">Project Page</a> &nbsp;|&nbsp; 🤗 <a href="https://huggingface.co/X-AuT/X-AuT">Model Weights</a> &nbsp;|&nbsp; <a href="README_zh.md">【中文说明】</a>
 </p>
 
 ---
