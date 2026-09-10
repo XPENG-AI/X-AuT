@@ -6,7 +6,7 @@
 
 <p align="center">
   <b>基于跨尺度蒸馏的语音大模型渐进式音频编码器压缩</b><br/>
-  XPeng Inc. &nbsp;|&nbsp; 🌐 <a href="https://x-aut.github.io/">项目主页</a> &nbsp;|&nbsp; 🤗 <a href="https://huggingface.co/X-AuT/X-AuT">模型权重</a> &nbsp;|&nbsp; <a href="README.md">【English README】</a>
+  XPeng Inc. &nbsp;|&nbsp; 🌐 <a href="https://xpeng-ai.github.io/x-aut">项目主页</a> &nbsp;|&nbsp; 🤗 <a href="https://huggingface.co/XPENG-AI/X-AuT">模型权重</a> &nbsp;|&nbsp; <a href="README.md">【English README】</a>
 </p>
 
 ---
