@@ -6,7 +6,7 @@
 
 <p align="center">
   <b>Progressive Audio-Encoder Compression for Speech LLMs with Cross-Scale Distillation</b><br/>
-  XPeng Inc. &nbsp;|&nbsp; 🌐 <a href="https://xpeng-ai.github.io/x-aut">Project Page</a> &nbsp;|&nbsp; 🤗 <a href="https://huggingface.co/XPENG-AI/X-AuT">Model Weights</a> &nbsp;|&nbsp; <a href="README_zh.md">【中文说明】</a>
+  XPeng Inc. &nbsp;|&nbsp; 🌐 <a href="https://xpeng-ai.github.io/x-aut">Project Page</a> &nbsp;|&nbsp; 📄 <a href="https://arxiv.org/abs/2609.11412">Paper</a> &nbsp;|&nbsp; 💻 <a href="https://github.com/XPENG-AI/X-AuT">GitHub</a> &nbsp;|&nbsp; 🤗 <a href="https://huggingface.co/XPENG-AI/X-AuT">Model Weights</a> &nbsp;|&nbsp; <a href="README_zh.md">【中文说明】</a>
 </p>
 
 ---
@@ -118,7 +118,7 @@ The minimal finetuning directory is a practical **Stage-2-style adaptation examp
 
 ## 🚀 Inference
 
-Released weights are hosted at 🤗 [X-AuT/X-AuT](https://huggingface.co/X-AuT/X-AuT) as a **full fine-tuned model** in safetensors format (audio tower already at 14 layers) — it loads directly, with no base-model download or manual layer pruning.
+Released weights are hosted at 🤗 [XPENG-AI/X-AuT](https://huggingface.co/XPENG-AI/X-AuT) as a **full fine-tuned model** in safetensors format (audio tower already at 14 layers) — it loads directly, with no base-model download or manual layer pruning.
 
 We provide a standalone inference script [`infer_xaut.py`](infer_xaut.py) that does **not** depend on the X-AuT training codebase — only on `torch`, `torchaudio`, `transformers`, `qwen-asr`, and `huggingface_hub` (audio is automatically converted to 16 kHz mono). The inference logic follows the official recipe: chat-template prompt with a language-control suffix → `processor` encoding → `thinker.generate()` → text decoding.
 
@@ -136,7 +136,7 @@ Validated dependency versions are pinned in [`requirements.txt`](requirements.tx
 ### Quickstart
 
 ```bash
-# checkpoint is auto-downloaded from https://huggingface.co/X-AuT/X-AuT
+# checkpoint is auto-downloaded from https://huggingface.co/XPENG-AI/X-AuT
 python infer_xaut.py \
   --audio /path/to/test.wav \
   --lang-code zh \
@@ -148,9 +148,9 @@ Or load the model directly in Python:
 ```python
 from qwen_asr.core.transformers_backend import Qwen3ASRForConditionalGeneration, Qwen3ASRProcessor
 
-processor = Qwen3ASRProcessor.from_pretrained("X-AuT/X-AuT", fix_mistral_regex=True)
+processor = Qwen3ASRProcessor.from_pretrained("XPENG-AI/X-AuT", fix_mistral_regex=True)
 model = Qwen3ASRForConditionalGeneration.from_pretrained(
-    "X-AuT/X-AuT", dtype="bfloat16", device_map="cuda",
+    "XPENG-AI/X-AuT", dtype="bfloat16", device_map="cuda",
 )
 # then follow the standard Qwen3-ASR generation recipe
 ```
@@ -160,7 +160,7 @@ model = Qwen3ASRForConditionalGeneration.from_pretrained(
 | Argument | Default | Description |
 |----------|---------|-------------|
 | `--audio` | *(required)* | Input audio path (wav/mp3/flac…), auto-resampled to 16 kHz mono |
-| `--model` | `X-AuT/X-AuT` | HF repo id or a local directory of the checkpoint |
+| `--model` | `XPENG-AI/X-AuT` | HF repo id or a local directory of the checkpoint |
 | `--lang-code` | `zh` | Language control prefix (`zh` / `en`) |
 | `--device` | `cuda` | `cuda` or `cpu` |
 | `--attn-implementation` | `sdpa` | `sdpa` / `flash_attention_2` / `eager` |
@@ -208,7 +208,7 @@ The recorded PPU code-path check and its explicit full-checkpoint boundary are d
 
 ## 📁 Checkpoint
 
-The released checkpoint is a complete model bundle on 🤗 [X-AuT/X-AuT](https://huggingface.co/X-AuT/X-AuT): full fine-tuned weights (audio tower already at 14 layers) plus `config.json`, `generation_config.json`, tokenizer, and preprocessor — so no extra configuration file is needed at inference time. License: [CC BY-NC 4.0](LICENSE).
+The released checkpoint is a complete model bundle on 🤗 [XPENG-AI/X-AuT](https://huggingface.co/XPENG-AI/X-AuT): full fine-tuned weights (audio tower already at 14 layers) plus `config.json`, `generation_config.json`, tokenizer, and preprocessor — so no extra configuration file is needed at inference time. License: [CC BY-NC 4.0](LICENSE).
 
 The model weights and example data are provided for research and evaluation purposes only. Commercial use, production deployment, resale, sublicensing, redistribution, or use to train or improve commercial products or services is prohibited without prior written permission from XPeng Inc.
 
@@ -227,15 +227,14 @@ The model weights and example data are provided for research and evaluation purp
 If you find X-AuT useful in your research, please consider citing our paper:
 
 ```bibtex
-@article{zhang2026xaut,
-  title   = {X-AuT: Progressive Audio-Encoder Compression for
-             Speech LLMs with Cross-Scale Distillation},
-  author  = {Zhang, Haojun and Zou, Yi and Chen, Min and Yu, Qize and
-             Fan, Lianrui and Ding, Xini and Zhou, Shuchang and
-             Liu, Xianming and Huang, Shiyu},
-  journal = {Preprint},
-  year    = {2026},
-  url     = {https://x-aut.github.io/}
+@misc{zhang2026xautprogressiveaudioencodercompression,
+  title={X-AuT: Progressive Audio-Encoder Compression for Speech LLMs with Cross-Scale Distillation},
+  author={Haojun Zhang and Yi Zou and Min Chen and Qize Yu and Lianrui Fan and Xini Ding and Hao Li and Shuchang Zhou and Xianming Liu and Shiyu Huang},
+  year={2026},
+  eprint={2609.11412},
+  archivePrefix={arXiv},
+  primaryClass={cs.SD},
+  url={https://arxiv.org/abs/2609.11412},
 }
 ```
 

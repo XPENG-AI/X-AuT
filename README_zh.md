@@ -6,7 +6,7 @@
 
 <p align="center">
   <b>基于跨尺度蒸馏的语音大模型渐进式音频编码器压缩</b><br/>
-  XPeng Inc. &nbsp;|&nbsp; 🌐 <a href="https://xpeng-ai.github.io/x-aut">项目主页</a> &nbsp;|&nbsp; 🤗 <a href="https://huggingface.co/XPENG-AI/X-AuT">模型权重</a> &nbsp;|&nbsp; <a href="README.md">【English README】</a>
+  XPeng Inc. &nbsp;|&nbsp; 🌐 <a href="https://xpeng-ai.github.io/x-aut">项目主页</a> &nbsp;|&nbsp; 📄 <a href="https://arxiv.org/abs/2609.11412">论文</a> &nbsp;|&nbsp; 💻 <a href="https://github.com/XPENG-AI/X-AuT">GitHub</a> &nbsp;|&nbsp; 🤗 <a href="https://huggingface.co/XPENG-AI/X-AuT">模型权重</a> &nbsp;|&nbsp; <a href="README.md">【English README】</a>
 </p>
 
 ---
@@ -118,7 +118,7 @@
 
 ## 🚀 推理
 
-发布的权重托管在 🤗 [X-AuT/X-AuT](https://huggingface.co/X-AuT/X-AuT)，为 **完整微调模型**，采用 safetensors 格式（音频塔已是 14 层）——可直接加载，无需下载基础模型或手动剪枝层。
+发布的权重托管在 🤗 [XPENG-AI/X-AuT](https://huggingface.co/XPENG-AI/X-AuT)，为 **完整微调模型**，采用 safetensors 格式（音频塔已是 14 层）——可直接加载，无需下载基础模型或手动剪枝层。
 
 我们提供了一个独立的推理脚本 [`infer_xaut.py`](infer_xaut.py)，它**不依赖** X-AuT 训练代码库——仅需 `torch`、`torchaudio`、`transformers`、`qwen-asr` 和 `huggingface_hub`（音频会自动转换为 16 kHz 单声道）。推理逻辑遵循官方流程：带语言控制后缀的 chat-template prompt → `processor` 编码 → `thinker.generate()` → 文本解码。
 
@@ -136,7 +136,7 @@ pip install -r requirements.txt
 ### 快速开始
 
 ```bash
-# 检查点会自动从 https://huggingface.co/X-AuT/X-AuT 下载
+# 检查点会自动从 https://huggingface.co/XPENG-AI/X-AuT 下载
 python infer_xaut.py \
   --audio /path/to/test.wav \
   --lang-code zh \
@@ -148,9 +148,9 @@ python infer_xaut.py \
 ```python
 from qwen_asr.core.transformers_backend import Qwen3ASRForConditionalGeneration, Qwen3ASRProcessor
 
-processor = Qwen3ASRProcessor.from_pretrained("X-AuT/X-AuT", fix_mistral_regex=True)
+processor = Qwen3ASRProcessor.from_pretrained("XPENG-AI/X-AuT", fix_mistral_regex=True)
 model = Qwen3ASRForConditionalGeneration.from_pretrained(
-    "X-AuT/X-AuT", dtype="bfloat16", device_map="cuda",
+    "XPENG-AI/X-AuT", dtype="bfloat16", device_map="cuda",
 )
 # 然后按照标准 Qwen3-ASR 生成流程使用
 ```
@@ -160,7 +160,7 @@ model = Qwen3ASRForConditionalGeneration.from_pretrained(
 | 参数 | 默认值 | 说明 |
 |----------|---------|-------------|
 | `--audio` | *(必填)* | 输入音频路径（wav/mp3/flac…），自动重采样为 16 kHz 单声道 |
-| `--model` | `X-AuT/X-AuT` | Hugging Face 仓库 ID 或本地检查点目录 |
+| `--model` | `XPENG-AI/X-AuT` | Hugging Face 仓库 ID 或本地检查点目录 |
 | `--lang-code` | `zh` | 语言控制前缀（`zh` / `en`） |
 | `--device` | `cuda` | `cuda` 或 `cpu` |
 | `--attn-implementation` | `sdpa` | `sdpa` / `flash_attention_2` / `eager` |
@@ -208,7 +208,7 @@ python xaut-ft-simple/scripts/smoke_train.py --device-type cuda
 
 ## 📁 检查点
 
-发布的检查点是 🤗 [X-AuT/X-AuT](https://huggingface.co/X-AuT/X-AuT) 上的完整模型包：完整微调权重（音频塔已是 14 层），以及 `config.json`、`generation_config.json`、tokenizer 和预处理器——推理时无需额外配置文件。许可证：[CC BY-NC 4.0](LICENSE)。
+发布的检查点是 🤗 [XPENG-AI/X-AuT](https://huggingface.co/XPENG-AI/X-AuT) 上的完整模型包：完整微调权重（音频塔已是 14 层），以及 `config.json`、`generation_config.json`、tokenizer 和预处理器——推理时无需额外配置文件。许可证：[CC BY-NC 4.0](LICENSE)。
 
 模型权重和示例数据仅供研究和评估使用。未经小鹏汽车（XPeng Inc.）事先书面许可，禁止将其用于商业用途、生产部署、转售、再许可、再分发，或用于训练/改进商业产品或服务。
 
@@ -227,15 +227,14 @@ python xaut-ft-simple/scripts/smoke_train.py --device-type cuda
 如果您在研究中使用了 X-AuT，请考虑引用我们的论文：
 
 ```bibtex
-@article{zhang2026xaut,
-  title   = {X-AuT: Progressive Audio-Encoder Compression for
-             Speech LLMs with Cross-Scale Distillation},
-  author  = {Zhang, Haojun and Zou, Yi and Chen, Min and Yu, Qize and
-             Fan, Lianrui and Ding, Xini and Zhou, Shuchang and
-             Liu, Xianming and Huang, Shiyu},
-  journal = {Preprint},
-  year    = {2026},
-  url     = {https://x-aut.github.io/}
+@misc{zhang2026xautprogressiveaudioencodercompression,
+  title={X-AuT: Progressive Audio-Encoder Compression for Speech LLMs with Cross-Scale Distillation},
+  author={Haojun Zhang and Yi Zou and Min Chen and Qize Yu and Lianrui Fan and Xini Ding and Hao Li and Shuchang Zhou and Xianming Liu and Shiyu Huang},
+  year={2026},
+  eprint={2609.11412},
+  archivePrefix={arXiv},
+  primaryClass={cs.SD},
+  url={https://arxiv.org/abs/2609.11412},
 }
 ```
 
